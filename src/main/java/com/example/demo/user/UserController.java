@@ -32,16 +32,17 @@ public class UserController {
                                                 @RequestParam(required = false, value = "page") Integer pageNo,
                                                 Pageable pageable) {
         UserResponse res = getUserDetail(userService.findById(id));
+        if (res == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
     @PostMapping("")
     public ResponseEntity<User> postUser(@RequestBody UserRequest uReq) {
-        if (userService.findByName(uReq.getName()) != null) {
+        if (userService.findByName(uReq.getName()) != null)
             return ResponseEntity.status(HttpStatus.IM_USED).build();
-        }
-        User user = userService.push(uReq);
 
+        User user = userService.push(uReq);
         return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
@@ -56,6 +57,8 @@ public class UserController {
     }
 
     private UserResponse getUserDetail(User t) {
+        if (t == null)
+            return null;
         UserResponse res = new UserResponse();
         res.setName(t.getName());
         res.setPosts(getUserWritingDetail(t.getPosts()));

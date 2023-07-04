@@ -31,8 +31,8 @@ public class PostController {
         Post post = postService.getPost(id);
         if (post == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
         PostResponse.ResponseData res = new PostResponse.ResponseData(post.getId(), post.getTitle(), post.getContent());
-        System.out.println(res.title);
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
