@@ -3,15 +3,15 @@ package com.example.demo.user;
 import com.example.demo.post.Post;
 import com.example.demo.post.PostResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Controller
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
@@ -19,20 +19,30 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("")
+    public String hellowWorld(){
+        return "hello, world";
+    }
     public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<UserResponse> res = getUserDetails(userService.getAll());
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable("id") Long id) {
+    public ResponseEntity<UserResponse> getUser(@PathVariable("id") Long id,
+                                                @RequestParam(required = false, value = "page") Integer pageNo,
+                                                Pageable pageable) {
         UserResponse res = getUserDetail(userService.findById(id));
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
     @PostMapping("")
-    public void postUser(@RequestBody UserRequest User) {
-        userService.push(User);
+    public ResponseEntity<User> postUser(@RequestBody UserRequest uReq) {
+        if (userService.findByName(uReq.getName()) != null) {
+            return ResponseEntity.status(HttpStatus.IM_USED).build();
+        }
+        User user = userService.push(uReq);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 
     @PutMapping("/{id}")
@@ -58,9 +68,9 @@ public class UserController {
         return res;
     }
 
-    private List<PostResponse> getUserWritingDetail(List<Post> p) {
-        List<PostResponse> res = new ArrayList<>();
-        p.forEach(a -> res.add(new PostResponse(a.getId(), a.getTitle(), a.getContent())));
+    private List<PostResponse.ResponseData> getUserWritingDetail(List<Post> p) {
+        List<PostResponse.ResponseData> res = new ArrayList<>();
+        p.forEach(a -> res.add(new PostResponse.ResponseData(a.getId(), a.getTitle(), a.getContent())));
         return res;
     }
 }

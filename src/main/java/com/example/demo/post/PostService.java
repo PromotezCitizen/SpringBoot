@@ -1,8 +1,14 @@
 package com.example.demo.post;
 
+import com.example.demo.user.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -20,5 +26,15 @@ public class PostService {
             return postOptional.get();
         }
         return null;
+    }
+
+    public PostResponse getPage(Integer pageNo) {
+        Pageable pageable = PageRequest.of(pageNo, 10);
+        Page<Post> page = postRepository.findAllByOrderByIdDesc(pageable);
+
+        PostResponse res = new PostResponse(page.getTotalPages());
+        page.getContent().forEach( post -> res.data.add(new PostResponse.ResponseData(post.getId(), post.getTitle(), post.getContent())));
+
+        return res;
     }
 }

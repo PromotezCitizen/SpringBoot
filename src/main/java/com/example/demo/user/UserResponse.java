@@ -14,5 +14,5 @@ import java.util.List;
 @NoArgsConstructor
 public class UserResponse {
     private String name;
-    private List<PostResponse> posts;
+    private List<PostResponse.ResponseData> posts;
 }

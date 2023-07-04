@@ -3,6 +3,7 @@ package com.example.demo.user;
 import com.example.demo.post.Post;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
