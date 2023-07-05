@@ -35,12 +35,12 @@ public class UserService {
         return userRepository.save(t);
     }
 
-    public void modify(Long id, UserRequest test) {
-        Optional<User> testOptional = userRepository.findById(id);
-        if (testOptional.isPresent()) {
-            User t = testOptional.get();
-            t.setName(test.getName());
-            userRepository.save(t);
+    public void modify(Long id, UserRequest req) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setName(req.getName());
+            userRepository.save(user);
         }
     }
 

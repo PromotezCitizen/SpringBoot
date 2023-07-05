@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -14,5 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 public class UserResponse {
     private String name;
-    private List<PostResponse.ResponseData> posts;
+    private LocalDateTime signedDate;
+    private Boolean isBanned;
 }
