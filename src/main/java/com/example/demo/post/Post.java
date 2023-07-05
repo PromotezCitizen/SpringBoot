@@ -15,7 +15,6 @@ import java.util.List;
 
 @Entity
 @Data
-@ToString(exclude = "user")
 public class Post {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
@@ -24,18 +23,24 @@ public class Post {
     private String content;
 
     @ColumnDefault("0")
-    private Integer like;
+    private Integer likes;
 
+    @Column
     @CreationTimestamp
-    private LocalDateTime createTime;
-    @CreationTimestamp
+    private LocalDateTime createTime = LocalDateTime.now();
+
+    @Column
     @UpdateTimestamp
-    private LocalDateTime modifyTime;
+    private LocalDateTime modifiedTime = LocalDateTime.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
     private Board board;
-    @OneToMany(cascade = CascadeType.REMOVE)
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 }

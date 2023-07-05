@@ -59,13 +59,14 @@ public class PostService {
         PostResponse res = new PostResponse(page.getTotalPages());
 
         page.getContent().forEach( post -> {
-            Boolean modified = post.getCreateTime() == post.getModifyTime() ? false : true;
+            LocalDateTime time = post.getModifiedTime() != null ? post.getModifiedTime() : post.getCreateTime();
+            Boolean modified = post.getModifiedTime() != null;
             res.data.add(new PostResponse.ResponseData(
                             post.getId(),
                             post.getTitle(),
                             post.getContent(),
-                            post.getLike(),
-                            post.getCreateTime(),
+                            post.getLikes(),
+                            time,
                             modified
                     )
             );
