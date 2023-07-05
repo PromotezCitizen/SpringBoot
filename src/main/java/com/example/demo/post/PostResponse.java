@@ -2,6 +2,7 @@ package com.example.demo.post;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class PostResponse {
     }
 
     public PostResponse(Integer counts) {
+        this();
         this.counts = counts;
-        data = new ArrayList<>();
     }
 
     @AllArgsConstructor
@@ -26,5 +27,8 @@ public class PostResponse {
         public Long id;
         public String title;
         public String content;
+        public Integer like;
+        public LocalDateTime time;
+        public Boolean modified;
     }
 }
