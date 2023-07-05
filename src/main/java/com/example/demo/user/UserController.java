@@ -2,20 +2,14 @@ package com.example.demo.user;
 
 import com.example.demo.comment.CommentResponse;
 import com.example.demo.comment.CommentService;
-import com.example.demo.post.Post;
 import com.example.demo.post.PostResponse;
 import com.example.demo.post.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
