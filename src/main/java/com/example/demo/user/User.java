@@ -1,10 +1,10 @@
 package com.example.demo.user;
 
+import com.example.demo.board.Board;
 import com.example.demo.comment.Comment;
 import com.example.demo.post.Post;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -15,21 +15,25 @@ import java.util.List;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
+    @Column
     @CreationTimestamp
-    private LocalDateTime createDate;
+    private LocalDateTime createDate = LocalDateTime.now();
 
-    @CreationTimestamp
+    @Column
     @UpdateTimestamp
-    private LocalDateTime breakDate;
+    private LocalDateTime breakDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Post> posts;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "user")
+    private List<Board> boards;
 }

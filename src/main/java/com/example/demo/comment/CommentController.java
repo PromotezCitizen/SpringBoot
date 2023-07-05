@@ -19,7 +19,7 @@ public class CommentController {
     private final UserService userService;
     private final PostService postService;
     // comment 단독으로 get 하는 경우는 없으니 GetMapping 제외
-    @PostMapping("/{post_id")
+    @PostMapping("/{post_id}")
     public ResponseEntity<Comment> postComment(@PathVariable("post_id") Long post_id,
                                                @RequestBody CommentRequest req,
                                                @RequestHeader("token") String token) {

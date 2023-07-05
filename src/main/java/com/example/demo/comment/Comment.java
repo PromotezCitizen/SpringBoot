@@ -19,17 +19,22 @@ public class Comment {
     @Column(length = 300)
     private String comment;
 
+    @Column
     @CreationTimestamp
-    private LocalDateTime createTime;
-    @CreationTimestamp
+    private LocalDateTime createTime = LocalDateTime.now();
+
+    @Column
     @UpdateTimestamp
-    private LocalDateTime modifyTime;
+    private LocalDateTime modifiedTime = LocalDateTime.now();
 
     @ColumnDefault("0")
-    private Integer like;
+    private Integer likes;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
     private Post post;
 }

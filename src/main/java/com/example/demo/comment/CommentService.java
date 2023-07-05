@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -43,13 +44,14 @@ public class CommentService {
         CommentResponse res = new CommentResponse(page.getTotalPages());
 
         page.getContent().forEach( comment -> {
-            Boolean modified = comment.getCreateTime() == comment.getModifyTime() ? false : true;
+            LocalDateTime time = comment.getModifiedTime() != null ? comment.getModifiedTime() : comment.getCreateTime();
+            Boolean modified = comment.getModifiedTime() != null;
             res.data.add(new CommentResponse.ResponseData(
                             comment.getId(),
                             comment.getComment(),
                             comment.getUser().getName(),
-                            comment.getLike(),
-                            comment.getModifyTime(),
+                            comment.getLikes(),
+                            time,
                             modified,
                             new PostInfo(comment.getPost().getId(), comment.getPost().getTitle())
                     )

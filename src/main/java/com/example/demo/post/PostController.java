@@ -34,13 +34,14 @@ public class PostController {
         if (post == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-        Boolean modified = post.getCreateTime() == post.getModifyTime() ? false : true;
+        LocalDateTime time = post.getModifiedTime() != null ? post.getModifiedTime() : post.getCreateTime();
+        Boolean modified = post.getModifiedTime() != null;
         PostResponse.ResponseData res = new PostResponse.ResponseData(
                 post.getId(),
                 post.getTitle(),
                 post.getContent(),
-                post.getLike(),
-                post.getModifyTime(),
+                post.getLikes(),
+                time,
                 modified
         );
         return ResponseEntity.status(HttpStatus.OK).body(res);
@@ -88,8 +89,8 @@ public class PostController {
                 post.getId(),
                 post.getTitle(),
                 post.getContent(),
-                post.getLike(),
-                post.getModifyTime(),
+                post.getLikes(),
+                post.getModifiedTime(),
                 true
         );
 
