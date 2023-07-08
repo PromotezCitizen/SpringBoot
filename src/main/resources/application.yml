@@ -1,16 +1,15 @@
-spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
-
-spring.datasource.url=jdbc:mysql://localhost:3307/spring?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
-
-spring.datasource.username=root
-
-spring.datasource.password=
-
-spring.jpa.show-sql=true
-
-spring.jpa.hibernate.ddl-auto=update 
-
-spring.jpa.properties.hibernate.format_sql=true
-
-
-spring.jwt.secret="RCSOkZHOUkgKth4xZpkRFhqZL06DndOQnN/lcHEghcN3Zpd6Hoyy2g1xhETw11eN93LQzUvoOsO/63KbLvBwF+87mtTUwuboU4v6RDDjwER4Iy/qmsNGbaJmT+/zsI3Q7xeAlSQ26t9XtFBop0C76IXNxuGG7m14hxC4FywQo5V4A+SofBEdNYwf+lvj/QCdkgSg2YqLVwWPCzs9XcmhPPCRMM8dox41U2a5STBWQbCl4l53F3LrSXgoDXOYuwYWbVRoHTunUAc430oRIwsxhhc2GSZUucXg1B2l+NfegHQVX+XFKXp8qCJwmQuXD7CcPkPlMBUnNwSE7mUIfgqjfA=="
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3307/spring?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul
+    username: root
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+  jwt:
+    secret: RCSOkZHOUkgKth4xZpkRFhqZL06DndOQnN/lcHEghcN3Zpd6Hoyy2g1xhETw11eN93LQzUvoOsO/63KbLvBwF+87mtTUwuboU4v6RDDjwER4Iy/qmsNGbaJmT+/zsI3Q7xeAlSQ26t9XtFBop0C76IXNxuGG7m14hxC4FywQo5V4A+SofBEdNYwf+lvj/QCdkgSg2YqLVwWPCzs9XcmhPPCRMM8dox41U2a5STBWQbCl4l53F3LrSXgoDXOYuwYWbVRoHTunUAc430oRIwsxhhc2GSZUucXg1B2l+NfegHQVX+XFKXp8qCJwmQuXD7CcPkPlMBUnNwSE7mUIfgqjfA==
